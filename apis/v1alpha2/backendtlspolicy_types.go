@@ -102,7 +102,7 @@ type BackendTLSPolicyConfig struct {
 	//
 	// +kubebuilder:validation:MaxItems=8
 	// +optional
-	CACertRefs []v1beta1.LocalObjectReference `json:"caCertRefs,omitempty"`
+	CACertRefs []LocalCACertReference `json:"caCertRefs,omitempty"`
 
 	// WellKnownCACerts specifies whether system CA certificates may be used in
 	// the TLS handshake between the gateway and backend pod.
@@ -125,6 +125,28 @@ type BackendTLSPolicyConfig struct {
 	//
 	// Support: Core
 	Hostname v1beta1.PreciseHostname `json:"hostname"`
+}
+
+// LocalCACertReference identifies an API object within the namespace of the
+// referrer.
+// The API object must be valid in the cluster; the Group and Kind must
+// be registered in the cluster for this reference to be valid.
+//
+// References to objects with invalid Group and Kind are not valid, and must
+// be rejected by the implementation, with appropriate Conditions set
+// on the containing object.
+type LocalCACertReference struct {
+	// Group is the group of the referent. For example, "gateway.networking.k8s.io".
+	// When unspecified or empty string, core API group is inferred.
+	//
+	// +optional
+	Group Group `json:"group"`
+
+	// Kind is kind of the referent. For example "HTTPRoute" or "Service".
+	Kind Kind `json:"kind"`
+
+	// Name is the name of the referent.
+	Name ObjectName `json:"name"`
 }
 
 // WellKnownCACertType is the type of CA certificate that will be used when

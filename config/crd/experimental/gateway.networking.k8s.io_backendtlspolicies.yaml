@@ -120,7 +120,7 @@ spec:
                       in a key named `ca.crt`. \n Support: Implementation-specific
                       (More than one reference, or other kinds of resources)."
                     items:
-                      description: "LocalObjectReference identifies an API object
+                      description: "LocalCACertReference identifies an API object
                         within the namespace of the referrer. The API object must
                         be valid in the cluster; the Group and Kind must be registered
                         in the cluster for this reference to be valid. \n References
@@ -148,7 +148,6 @@ spec:
                           minLength: 1
                           type: string
                       required:
-                      - group
                       - kind
                       - name
                       type: object
