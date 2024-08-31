@@ -556,7 +556,6 @@ spec:
                                       minLength: 1
                                       type: string
                                   required:
-                                  - group
                                   - kind
                                   - name
                                   type: object
@@ -1569,7 +1568,6 @@ spec:
                                 minLength: 1
                                 type: string
                             required:
-                            - group
                             - kind
                             - name
                             type: object
@@ -3781,7 +3779,6 @@ spec:
                                       minLength: 1
                                       type: string
                                   required:
-                                  - group
                                   - kind
                                   - name
                                   type: object
@@ -4794,7 +4791,6 @@ spec:
                                 minLength: 1
                                 type: string
                             required:
-                            - group
                             - kind
                             - name
                             type: object

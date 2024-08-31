@@ -143,6 +143,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendLBPolicy":                           schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendLBPolicy(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendLBPolicyList":                       schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendLBPolicyList(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendLBPolicySpec":                       schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendLBPolicySpec(ref),
+		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicy":                          schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicy(ref),
+		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicyConfig":                    schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicyConfig(ref),
+		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicyList":                      schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicyList(ref),
+		"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicySpec":                      schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicySpec(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.GRPCRoute":                                 schema_sigsk8sio_gateway_api_apis_v1alpha2_GRPCRoute(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.GRPCRouteList":                             schema_sigsk8sio_gateway_api_apis_v1alpha2_GRPCRouteList(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.LocalPolicyTargetReference":                schema_sigsk8sio_gateway_api_apis_v1alpha2_LocalPolicyTargetReference(ref),
@@ -150,6 +154,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.NamespacedPolicyTargetReference":           schema_sigsk8sio_gateway_api_apis_v1alpha2_NamespacedPolicyTargetReference(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyAncestorStatus":                      schema_sigsk8sio_gateway_api_apis_v1alpha2_PolicyAncestorStatus(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyStatus":                              schema_sigsk8sio_gateway_api_apis_v1alpha2_PolicyStatus(ref),
+		"sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyTargetReferenceWithSectionName":      schema_sigsk8sio_gateway_api_apis_v1alpha2_PolicyTargetReferenceWithSectionName(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.ReferenceGrant":                            schema_sigsk8sio_gateway_api_apis_v1alpha2_ReferenceGrant(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.ReferenceGrantList":                        schema_sigsk8sio_gateway_api_apis_v1alpha2_ReferenceGrantList(ref),
 		"sigs.k8s.io/gateway-api/apis/v1alpha2.TCPRoute":                                  schema_sigsk8sio_gateway_api_apis_v1alpha2_TCPRoute(ref),
@@ -5021,7 +5026,7 @@ func schema_sigsk8sio_gateway_api_apis_v1_LocalObjectReference(ref common.Refere
 						},
 					},
 				},
-				Required: []string{"group", "kind", "name"},
+				Required: []string{"kind", "name"},
 			},
 		},
 	}
@@ -5589,6 +5594,180 @@ func schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendLBPolicySpec(ref common.R
 	}
 }
 
+func schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicy(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "BackendTLSPolicy provides a way to configure how a Gateway connects to a Backend via TLS.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Spec defines the desired state of BackendTLSPolicy.",
+							Default:     map[string]interface{}{},
+							Ref:         ref("sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicySpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status defines the current state of BackendTLSPolicy.",
+							Default:     map[string]interface{}{},
+							Ref:         ref("sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyStatus"),
+						},
+					},
+				},
+				Required: []string{"spec"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicySpec", "sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyStatus"},
+	}
+}
+
+func schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicyConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "BackendTLSPolicyConfig contains backend TLS policy configuration.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"caCertRefs": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CACertRefs contains one or more references to Kubernetes objects that contain a PEM-encoded TLS CA certificate bundle, which is used to validate a TLS handshake between the Gateway and backend Pod.\n\nIf CACertRefs is empty or unspecified, then WellKnownCACerts must be specified. Only one of CACertRefs or WellKnownCACerts may be specified, not both. If CACertRefs is empty or unspecified, the configuration for WellKnownCACerts MUST be honored instead.\n\nReferences to a resource in a different namespace are invalid for the moment, although we will revisit this in the future.\n\nA single CACertRef to a Kubernetes ConfigMap kind has \"Core\" support. Implementations MAY choose to support attaching multiple certificates to a backend, but this behavior is implementation-specific.\n\nSupport: Core - An optional single reference to a Kubernetes ConfigMap, with the CA certificate in a key named `ca.crt`.\n\nSupport: Implementation-specific (More than one reference, or other kinds of resources).",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("sigs.k8s.io/gateway-api/apis/v1.LocalObjectReference"),
+									},
+								},
+							},
+						},
+					},
+					"wellKnownCACerts": {
+						SchemaProps: spec.SchemaProps{
+							Description: "WellKnownCACerts specifies whether system CA certificates may be used in the TLS handshake between the gateway and backend pod.\n\nIf WellKnownCACerts is unspecified or empty (\"\"), then CACertRefs must be specified with at least one entry for a valid configuration. Only one of CACertRefs or WellKnownCACerts may be specified, not both.\n\nSupport: Core for \"System\"",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"hostname": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Hostname is used for two purposes in the connection between Gateways and backends:\n\n1. Hostname MUST be used as the SNI to connect to the backend (RFC 6066). 2. Hostname MUST be used for authentication and MUST match the certificate\n   served by the matching backend.\n\nSupport: Core",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"hostname"},
+			},
+		},
+		Dependencies: []string{
+			"sigs.k8s.io/gateway-api/apis/v1.LocalObjectReference"},
+	}
+}
+
+func schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicyList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "BackendTLSPolicyList contains a list of BackendTLSPolicies",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicy"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicy"},
+	}
+}
+
+func schema_sigsk8sio_gateway_api_apis_v1alpha2_BackendTLSPolicySpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "BackendTLSPolicySpec defines the desired state of BackendTLSPolicy.\n\nSupport: Extended",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"targetRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TargetRef identifies an API object to apply the policy to. Only Services have Extended support. Implementations MAY support additional objects, with Implementation Specific support. Note that this config applies to the entire referenced resource by default, but this default may change in the future to provide a more granular application of the policy.\n\nSupport: Extended for Kubernetes Service\n\nSupport: Implementation-specific for any other resource",
+							Default:     map[string]interface{}{},
+							Ref:         ref("sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyTargetReferenceWithSectionName"),
+						},
+					},
+					"tls": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TLS contains backend TLS policy configuration.",
+							Default:     map[string]interface{}{},
+							Ref:         ref("sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicyConfig"),
+						},
+					},
+				},
+				Required: []string{"targetRef", "tls"},
+			},
+		},
+		Dependencies: []string{
+			"sigs.k8s.io/gateway-api/apis/v1alpha2.BackendTLSPolicyConfig", "sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyTargetReferenceWithSectionName"},
+	}
+}
+
 func schema_sigsk8sio_gateway_api_apis_v1alpha2_GRPCRoute(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -5893,6 +6072,58 @@ func schema_sigsk8sio_gateway_api_apis_v1alpha2_PolicyStatus(ref common.Referenc
 		},
 		Dependencies: []string{
 			"sigs.k8s.io/gateway-api/apis/v1alpha2.PolicyAncestorStatus"},
+	}
+}
+
+func schema_sigsk8sio_gateway_api_apis_v1alpha2_PolicyTargetReferenceWithSectionName(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PolicyTargetReferenceWithSectionName identifies an API object to apply a direct policy to. This should be used as part of Policy resources that can target single resources. For more information on how this policy attachment mode works, and a sample Policy resource, refer to the policy attachment documentation for Gateway API.\n\nNote: This should only be used for direct policy attachment when references to SectionName are actually needed. In all other cases, PolicyTargetReference should be used.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Group is the group of the target resource.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is kind of the target resource.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the target resource.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the referent. When unspecified, the local namespace is inferred. Even when policy targets a resource in a different namespace, it MUST only apply to traffic originating from the same namespace as the policy.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"sectionName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SectionName is the name of a section within the target resource. When unspecified, this targetRef targets the entire resource. In the following resources, SectionName is interpreted as the following:\n\n* Gateway: Listener Name * Service: Port Name\n\nIf a SectionName is specified, but does not exist on the targeted object, the Policy must fail to attach, and the policy implementation should record a `ResolvedRefs` or similar Condition in the Policy's status.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"group", "kind", "name"},
+			},
+		},
 	}
 }
 

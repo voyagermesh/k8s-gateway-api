@@ -151,16 +151,26 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &apisv1alpha2.BackendLBPolicyApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("BackendLBPolicySpec"):
 		return &apisv1alpha2.BackendLBPolicySpecApplyConfiguration{}
+	case v1alpha2.SchemeGroupVersion.WithKind("BackendTLSPolicy"):
+		return &apisv1alpha2.BackendTLSPolicyApplyConfiguration{}
+	case v1alpha2.SchemeGroupVersion.WithKind("BackendTLSPolicyConfig"):
+		return &apisv1alpha2.BackendTLSPolicyConfigApplyConfiguration{}
+	case v1alpha2.SchemeGroupVersion.WithKind("BackendTLSPolicySpec"):
+		return &apisv1alpha2.BackendTLSPolicySpecApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("GRPCRoute"):
 		return &apisv1alpha2.GRPCRouteApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("LocalPolicyTargetReference"):
 		return &apisv1alpha2.LocalPolicyTargetReferenceApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("LocalPolicyTargetReferenceWithSectionName"):
 		return &apisv1alpha2.LocalPolicyTargetReferenceWithSectionNameApplyConfiguration{}
+	case v1alpha2.SchemeGroupVersion.WithKind("NamespacedPolicyTargetReference"):
+		return &apisv1alpha2.NamespacedPolicyTargetReferenceApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("PolicyAncestorStatus"):
 		return &apisv1alpha2.PolicyAncestorStatusApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("PolicyStatus"):
 		return &apisv1alpha2.PolicyStatusApplyConfiguration{}
+	case v1alpha2.SchemeGroupVersion.WithKind("PolicyTargetReferenceWithSectionName"):
+		return &apisv1alpha2.PolicyTargetReferenceWithSectionNameApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("ReferenceGrant"):
 		return &apisv1alpha2.ReferenceGrantApplyConfiguration{}
 	case v1alpha2.SchemeGroupVersion.WithKind("TCPRoute"):
