@@ -18,7 +18,7 @@ package v1alpha3
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
+	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	v1 "sigs.k8s.io/gateway-api/apis/v1"
 	"sigs.k8s.io/gateway-api/apis/v1alpha2"
 )
@@ -142,3 +142,14 @@ const (
 	// WellKnownCACertificatesSystem indicates that well known system CA certificates should be used.
 	WellKnownCACertificatesSystem WellKnownCACertificatesType = "System"
 )
+
+func (src *BackendTLSPolicy) ConvertTo(dstRaw conversion.Hub) error {
+	dst := dstRaw.(*v1alpha2.BackendTLSPolicy)
+	return Convert_v1alpha3_BackendTLSPolicy_To_v1alpha2_BackendTLSPolicy(src, dst, nil)
+}
+
+// ConvertFrom converts from the Hub version (v1) to this version.
+func (dst *BackendTLSPolicy) ConvertFrom(srcRaw conversion.Hub) error {
+	src := srcRaw.(*v1alpha2.BackendTLSPolicy)
+	return Convert_v1alpha2_BackendTLSPolicy_To_v1alpha3_BackendTLSPolicy(src, dst, nil)
+}

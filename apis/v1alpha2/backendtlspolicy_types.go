@@ -163,3 +163,6 @@ const (
 	// Indicates that well known system CA certificates should be used.
 	WellKnownCACertSystem WellKnownCACertType = "System"
 )
+
+// Hub marks this type as a conversion hub.
+func (*BackendTLSPolicy) Hub() {}
