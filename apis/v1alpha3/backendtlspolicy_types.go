@@ -18,9 +18,20 @@ package v1alpha3
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/klog/v2"
+	"kmodules.xyz/client-go/apiextensions"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	v1 "sigs.k8s.io/gateway-api/apis/v1"
 	"sigs.k8s.io/gateway-api/apis/v1alpha2"
+	"sigs.k8s.io/gateway-api/config/crd"
+)
+
+const (
+	ResourceCodeBackendTLSPolicy     = "btlspolicy"
+	ResourceKindBackendTLSPolicy     = "BackendTLSPolicy"
+	ResourceSingularBackendTLSPolicy = "backendtlspolicy"
+	ResourcePluralBackendTLSPolicy   = "backendtlspolicies"
 )
 
 // +genclient
@@ -143,13 +154,23 @@ const (
 	WellKnownCACertificatesSystem WellKnownCACertificatesType = "System"
 )
 
+func (_ BackendTLSPolicy) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crd.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralBackendTLSPolicy), "experimental")
+}
+
+func Kind(kind string) schema.GroupKind {
+	return SchemeGroupVersion.WithKind(kind).GroupKind()
+}
+
 func (src *BackendTLSPolicy) ConvertTo(dstRaw conversion.Hub) error {
+	klog.Infof("Convert v1alpha3 -> v1alpha2")
 	dst := dstRaw.(*v1alpha2.BackendTLSPolicy)
 	return Convert_v1alpha3_BackendTLSPolicy_To_v1alpha2_BackendTLSPolicy(src, dst, nil)
 }
 
 // ConvertFrom converts from the Hub version (v1) to this version.
 func (dst *BackendTLSPolicy) ConvertFrom(srcRaw conversion.Hub) error {
+	klog.Infof("Convert v1alpha2 -> v1alpha3")
 	src := srcRaw.(*v1alpha2.BackendTLSPolicy)
 	return Convert_v1alpha2_BackendTLSPolicy_To_v1alpha3_BackendTLSPolicy(src, dst, nil)
 }
