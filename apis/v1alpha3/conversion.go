@@ -97,11 +97,9 @@ func Convert_v1alpha2_BackendTLSPolicyConfig_To_v1alpha3_BackendTLSPolicyValidat
 	if in == nil {
 		return nil
 	}
-	out = &BackendTLSPolicyValidation{
-		CACertificateRefs:       in.CACertRefs,
-		WellKnownCACertificates: (*WellKnownCACertificatesType)(unsafe.Pointer(in.WellKnownCACerts)),
-		Hostname:                in.Hostname,
-	}
+	out.CACertificateRefs = in.CACertRefs
+	out.WellKnownCACertificates = (*WellKnownCACertificatesType)(unsafe.Pointer(in.WellKnownCACerts))
+	out.Hostname = in.Hostname
 	return nil
 }
 
@@ -128,10 +126,8 @@ func Convert_v1alpha3_BackendTLSPolicyValidation_To_v1alpha2_BackendTLSPolicyCon
 	if in == nil {
 		return nil
 	}
-	out = &v1alpha2.BackendTLSPolicyConfig{
-		CACertRefs:       in.CACertificateRefs,
-		WellKnownCACerts: (*v1alpha2.WellKnownCACertType)(unsafe.Pointer(in.WellKnownCACertificates)),
-		Hostname:         in.Hostname,
-	}
+	out.CACertRefs = in.CACertificateRefs
+	out.WellKnownCACerts = (*v1alpha2.WellKnownCACertType)(unsafe.Pointer(in.WellKnownCACertificates))
+	out.Hostname = in.Hostname
 	return nil
 }
