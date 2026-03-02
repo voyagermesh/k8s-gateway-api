@@ -46,7 +46,6 @@ Session.vim
 *.un~
 .vagrant
 !vendor/**/zz_generated.*
-.vscode
 /www/test_out
 .*.timestamp
 /site
@@ -63,3 +62,6 @@ site-src/reference/**/spec.md
 site-src/reference/**/specx.md
 
 .lycheecache
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
